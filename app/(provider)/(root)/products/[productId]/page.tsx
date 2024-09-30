@@ -25,6 +25,8 @@ function BrandDetailPage() {
     return <div>로딩중입니다....</div>;
   }
 
+  // 소수점 표시는 toLocaleString() 적용하기
+
   return (
     <main>
       <ul className="p-10 mx-auto">

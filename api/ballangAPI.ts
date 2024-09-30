@@ -14,6 +14,12 @@ export interface Product {
   price: string;
 }
 
+export interface Brand {
+  id: string;
+  nameEn?: string;
+  nameKr: string;
+}
+
 const ballangAPI = axios.create({
   baseURL: "https://api.ballang.yoojinyoung.com",
   withCredentials: true,
