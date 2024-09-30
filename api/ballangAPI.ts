@@ -25,4 +25,28 @@ const ballangAPI = axios.create({
   withCredentials: true,
 });
 
+export async function getProducts() {
+  try {
+    const response = await ballangAPI.get("/products");
+    const data = await response.data;
+
+    console.log(data);
+
+    return data.result;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getBrands() {
+  try {
+    const response = await ballangAPI.get("/brands");
+    const data = await response.data;
+
+    return data.result;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default ballangAPI;
