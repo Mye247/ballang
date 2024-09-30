@@ -1,9 +1,25 @@
-import { getBrands, getProducts } from "@/api/ballangAPI";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Brand, getBrands, getProducts, Product } from "@/api/ballangAPI";
 import Link from "next/link";
+import React from "react";
 
-export default async function BrandsDetailPage() {
-  const brands = await getBrands();
-  const products = await getProducts();
+interface Props {
+  searchParams: {
+    brandId: string;
+  };
+}
+
+export default async function BrandsListPage({ searchParams }: Props) {
+  const brands: Brand[] = await getBrands();
+  const products: Product[] = await getProducts();
+
+  const selectedBrandId = Number(searchParams.brandId);
+
+  // string 출력
+  console.log(typeof selectedBrandId);
+
+  // 타입 오브젝트로 출력됨
+  console.log(typeof products[0].brand.id);
 
   return (
     <>
@@ -18,7 +34,9 @@ export default async function BrandsDetailPage() {
           {brands.map((brand) => (
             <li
               key={brand.id}
-              className="text-slate-700 data-[active=true]:text-black data-[active=true]:font-semibold hover:text-black transition-all"
+              className={`text-slate-700 hover:text-black transition-all ${
+                selectedBrandId === brand.id ? "font-semibold text-black" : ""
+              }`}
             >
               <Link href={`/brands?brandId=${brand.id}`}>{brand.nameKr}</Link>
             </li>
@@ -26,25 +44,30 @@ export default async function BrandsDetailPage() {
         </ul>
 
         <ul className="grid grid-cols-6 gap-10 p-5 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-10">
-          {products.map((list) => (
-            <li key={list.id}>
-              <Link href={`/products/${list.id}`}>
-                <img src={list.imgSrc} alt="" />
-              </Link>
+          {products
+            .filter(
+              (product) =>
+                !selectedBrandId || product.brand.id === selectedBrandId
+            )
+            .map((product) => (
+              <li key={product.id}>
+                <Link href={`/products/${product.id}`}>
+                  <img src={product.imgSrc} alt={product.name} />
+                </Link>
 
-              <div>
-                <h3 className="my-2 font-bold">{list.brand.nameEn}</h3>
-                <span>{list.name}</span>
-              </div>
+                <div>
+                  <h3 className="my-2 font-bold">{product.brand.nameEn}</h3>
+                  <span>{product.name}</span>
+                </div>
 
-              <div className="flex gap-2 mt-2">
-                <span className="text-red-500 line-through">
-                  ₩{list.originalPrice}
-                </span>
-                <span>₩{list.price}</span>
-              </div>
-            </li>
-          ))}
+                <div className="flex gap-2 mt-2">
+                  <span className="text-red-500 line-through">
+                    ₩{product.originalPrice}
+                  </span>
+                  <span>₩{product.price}</span>
+                </div>
+              </li>
+            ))}
         </ul>
       </main>
     </>

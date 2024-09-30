@@ -2,20 +2,22 @@ import axios from "axios";
 
 export interface Product {
   brand: {
-    id: string;
+    id: number;
     nameEn: string;
     nameKr: string;
   };
-  brandId: string;
-  id: string;
+  brandId: number;
+  deliveryType: string;
+  id: number;
   imgSrc: string;
   name: string;
-  originalPrice: string;
-  price: string;
+  onlineStock: number;
+  originalPrice: number;
+  price: number;
 }
 
 export interface Brand {
-  id: string;
+  id: number;
   nameEn?: string;
   nameKr: string;
 }

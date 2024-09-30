@@ -1,10 +1,10 @@
-import { getProducts } from "@/api/ballangAPI";
+import { getProducts, Product } from "@/api/ballangAPI";
 import Link from "next/link";
 
 export default async function HomePage() {
 
-  const products = await getProducts();
-  
+  const products: Product[] = await getProducts();
+
   return (
     <>
       <main className="mt-10">
