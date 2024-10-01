@@ -4,8 +4,12 @@ import React, { useState } from "react";
 function ModalPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [modal, setModal] = useState(true);
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
+  const handleToggleModal = () => {
+    setModal(false);
+  };
   const handleClickSignUpButton = () => {
     if (!email.includes("@") || !email.includes(".")) {
       return alert("이메일 형식을 맞추어 입력해주세요!");
@@ -20,14 +24,9 @@ function ModalPage() {
     };
 
     setIsLoggedIn(true);
+    setModal(false);
 
     console.log(data);
-  };
-
-  const [modal, setModal] = useState(true);
-
-  const handleToggleModal = () => {
-    setModal(false);
   };
 
   return (

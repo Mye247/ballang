@@ -10,6 +10,7 @@ type AuthStoreState = {
 export const useAuthStore = create<AuthStoreState>((set) => ({
   isAuthInitialized: false,
   isLoggedIn: false,
+  cart: {},
   initializeAuth: () => set({ isAuthInitialized: true }),
-  setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }), 
+  setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
 }));

@@ -1,10 +1,11 @@
 "use client";
 
+import { SignUp } from "@/api/ballangAPI";
 import { useAuthStore } from "@/zustand/auth.store";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-function LogInPage() {
+function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
@@ -21,13 +22,7 @@ function LogInPage() {
     if (password !== checkPassword)
       return alert("비밀번호가 일치하지 않습니다!");
 
-    const data = {
-      email,
-      password,
-    };
-
-    console.log(data);
-
+    SignUp(email, password);
     setIsLoggedIn(true);
 
     router.push("/");
@@ -81,4 +76,4 @@ function LogInPage() {
   );
 }
 
-export default LogInPage;
+export default SignUpPage;

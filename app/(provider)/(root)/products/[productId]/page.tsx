@@ -25,6 +25,10 @@ function BrandDetailPage() {
     return <div>로딩중입니다....</div>;
   }
 
+  const handleClickAddCart = () => {
+    
+  };
+
   // 소수점 표시는 toLocaleString() 적용하기
 
   return (
@@ -49,7 +53,10 @@ function BrandDetailPage() {
               <p>잔여 재고</p> <p>200</p>
             </div>
 
-            <button className="border border-black min-w-[430px] h-[60px] font-bold text-white bg-black hover:-translate-y-2 transition-all mt-20">
+            <button
+              className="border border-black min-w-[430px] h-[60px] font-bold text-white bg-black hover:-translate-y-2 transition-all mt-20"
+              onClick={handleClickAddCart}
+            >
               장바구니에 담기
             </button>
           </div>

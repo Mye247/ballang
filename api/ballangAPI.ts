@@ -56,6 +56,32 @@ export async function getBrands() {
   }
 }
 
+export async function SignUp(email: string, password: string) {
+  const data = {
+    email,
+    password,
+  };
+  try {
+    const response = await ballangAPI.post("/auth/sign-up", data);
+    const result = await response.data;
+
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function LogOut() {
+  try {
+    const response = await ballangAPI.delete("/auth/log-out");
+    const result = await response.data;
+
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // export async function postSignUp(data: SignUp) {
 //   try {
 //     const response = await ballangAPI.post("/auth/sign-up", data);
