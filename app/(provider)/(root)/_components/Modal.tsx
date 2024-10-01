@@ -1,8 +1,10 @@
+import { useAuthStore } from "@/zustand/auth.store";
 import React, { useState } from "react";
 
 function ModalPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   const handleClickSignUpButton = () => {
     if (!email.includes("@") || !email.includes(".")) {
@@ -17,6 +19,8 @@ function ModalPage() {
       password,
     };
 
+    setIsLoggedIn(true);
+
     console.log(data);
   };
 
@@ -28,14 +32,14 @@ function ModalPage() {
 
   return (
     <>
-      {/* 모달이 true일 때만 렌더링 */}
+      {/* true때 보임 */}
       {modal && (
         <main
           className="bg-black/50 flex items-center justify-center fixed top-0 left-0 right-0 bottom-0 z-20"
           onClick={handleToggleModal}
         >
           <div
-            className="absolute top-[50%] left-[50%] w-[500px] h-[500px] bg-black -translate-x-[50%] -translate-y-[50%] rounded-2xl"
+            className="absolute top-[50%] left-[50%] w-[500px] h-[530px] bg-black -translate-x-[50%] -translate-y-[50%] rounded-2xl bg-white"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-center mt-10 font-semibold text-3xl">로그인</h2>
@@ -63,7 +67,7 @@ function ModalPage() {
               </div>
 
               <button
-                className="border border-black bg-black text-white w-[400px] h-[60px] mt-10 hover:-translate-y-2 transition-all"
+                className="border border-black bg-black text-white w-[400px] h-[60px] mt-20 hover:-translate-y-2 transition-all"
                 onClick={handleClickSignUpButton}
               >
                 로그인하기

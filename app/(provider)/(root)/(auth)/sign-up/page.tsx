@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuthStore } from "@/zustand/auth.store";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -9,6 +10,8 @@ function LogInPage() {
   const [checkPassword, setCheckPassword] = useState("");
 
   const router = useRouter();
+
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   const handleClickSignUpButton = () => {
     if (!email.includes("@") || !email.includes("."))
@@ -24,6 +27,8 @@ function LogInPage() {
     };
 
     console.log(data);
+
+    setIsLoggedIn(true);
 
     router.push("/");
   };

@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import supabase from "@/app/supabase/client";
 import { useAuthStore } from "@/zustand/auth.store";
-import React, { useEffect } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
+function AuthProvider({ children }: PropsWithChildren) {
   const initializeAuth = useAuthStore((state) => state.initializeAuth);
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 

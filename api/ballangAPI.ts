@@ -22,6 +22,11 @@ export interface Brand {
   nameKr: string;
 }
 
+export interface SignUp {
+  email: string;
+  password: string;
+}
+
 const ballangAPI = axios.create({
   baseURL: "https://api.ballang.yoojinyoung.com",
   withCredentials: true,
@@ -50,5 +55,16 @@ export async function getBrands() {
     console.log(e);
   }
 }
+
+// export async function postSignUp(data: SignUp) {
+//   try {
+//     const response = await ballangAPI.post("/auth/sign-up", data);
+//     const date = await response.data;
+
+//     return date.result;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
 
 export default ballangAPI;
