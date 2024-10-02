@@ -3,14 +3,21 @@ import { useAuthStore } from "@/zustand/auth.store";
 import React, { useState } from "react";
 
 function ModalPage() {
+  // 로그인용 State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [modal, setModal] = useState(true);
-  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
+  // 상태 불러오기
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+  const isModal = useAuthStore((state) => state.isModal);
+  const setIsModal = useAuthStore((state) => state.setIsModal);
+
+  // 바깥영역 클릭시 나가짐
   const handleToggleModal = () => {
-    setModal(false);
+    setIsModal(false);
   };
+
+  // 로그인 버튼
   const handleClickSignUpButton = async () => {
     if (!email.includes("@") || !email.includes(".")) {
       return alert("이메일 형식을 맞추어 입력해주세요!");
@@ -25,13 +32,13 @@ function ModalPage() {
     if (!result) return alert("회원 정보가 없습니다!");
 
     setIsLoggedIn(true);
-    setModal(false);
+    setIsModal(false);
   };
 
   return (
     <>
       {/* true때 보임 */}
-      {modal && (
+      {isModal && (
         <main
           className="bg-black/50 flex items-center justify-center fixed top-0 left-0 right-0 bottom-0 z-20"
           onClick={handleToggleModal}

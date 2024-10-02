@@ -1,6 +1,7 @@
 "use client";
 
 import ballangAPI, { Product } from "@/api/ballangAPI";
+import { useAuthStore } from "@/zustand/auth.store";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -9,6 +10,9 @@ function BrandDetailPage() {
 
   const [value, setValue] = useState<Product | null>(null);
   console.log(value);
+
+  const setIsModal = useAuthStore((state) => state.setIsModal);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   useEffect(() => {
     (async () => {
@@ -26,7 +30,8 @@ function BrandDetailPage() {
   }
 
   const handleClickAddCart = () => {
-    
+    if (!isLoggedIn) return setIsModal(true);
+    alert("장바구니에 추가 되었습니다!");
   };
 
   // 소수점 표시는 toLocaleString() 적용하기
@@ -46,9 +51,9 @@ function BrandDetailPage() {
             <div className="grid grid-cols-2 my-5">
               <p>정가</p>
               <p className="line-through text-red-500">
-                ₩{value.originalPrice}
+                ₩{value.originalPrice.toLocaleString()}
               </p>
-              <p>판매가</p> <p>₩{value.price}</p>
+              <p>판매가</p> <p>₩{value.price.toLocaleString()}</p>
               <p>배송</p> <p>당일배송</p>
               <p>잔여 재고</p> <p>200</p>
             </div>

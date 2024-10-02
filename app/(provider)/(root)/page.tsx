@@ -2,7 +2,6 @@ import { getProducts, Product } from "@/api/ballangAPI";
 import Link from "next/link";
 
 export default async function HomePage() {
-
   const products: Product[] = await getProducts();
 
   return (
@@ -23,9 +22,9 @@ export default async function HomePage() {
 
               <div className="flex gap-2 mt-2">
                 <span className="text-red-500 line-through">
-                  ₩{product.originalPrice}
+                  ₩{product.originalPrice.toLocaleString()}
                 </span>
-                <span>₩{product.price}</span>
+                <span>₩{product.price.toLocaleString()}</span>
               </div>
             </li>
           ))}

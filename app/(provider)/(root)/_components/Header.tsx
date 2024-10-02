@@ -2,20 +2,19 @@
 
 import { useAuthStore } from "@/zustand/auth.store";
 import Link from "next/link";
-import React, { useState } from "react";
 import ModalPage from "./Modal";
 import { LogOut } from "@/api/ballangAPI";
 
 function Header() {
-  const [modal, setModal] = useState(false);
-
-  const handleToggleModal = () => {
-    setModal(!modal);
-    console.log(modal);
-  };
-
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+  const isModal = useAuthStore((state) => state.isModal);
+  const setIsModal = useAuthStore((state) => state.setIsModal);
+
+  const handleToggleModal = () => {
+    setIsModal(!isModal);
+    console.log(isModal);
+  };
 
   const handleClickLogOut = async () => {
     const result = await LogOut();
@@ -49,7 +48,7 @@ function Header() {
         )}
       </header>
 
-      {modal === true ? <ModalPage /> : null}
+      {isModal === true ? <ModalPage /> : null}
     </>
   );
 }
