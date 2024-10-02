@@ -28,11 +28,15 @@ export interface SignUp {
   password: string;
 }
 
+// baseAPI
 const ballangAPI = axios.create({
   baseURL: "https://api.ballang.yoojinyoung.com",
   withCredentials: true,
 });
 
+export default ballangAPI;
+
+// data API
 export async function getProducts() {
   try {
     const response = await ballangAPI.get("/products");
@@ -98,15 +102,13 @@ export async function LogOut() {
   }
 }
 
-// export async function postSignUp(data: SignUp) {
-//   try {
-//     const response = await ballangAPI.post("/auth/sign-up", data);
-//     const date = await response.data;
+export async function getCart() {
+  try {
+    const response = await ballangAPI.get("/cart");
+    const result = await response.data;
 
-//     return date.result;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
-
-export default ballangAPI;
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
+}

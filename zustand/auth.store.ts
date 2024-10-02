@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+// 로그인 상태 + Modal 상태 관리
+
 type AuthStoreState = {
   isAuthInitialized: boolean;
   isLoggedIn: boolean;

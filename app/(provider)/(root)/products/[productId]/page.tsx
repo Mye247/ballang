@@ -29,8 +29,11 @@ function BrandDetailPage() {
     return <div>로딩중입니다....</div>;
   }
 
-  const handleClickAddCart = () => {
+  const handleClickAddCart = async () => {
     if (!isLoggedIn) return setIsModal(true);
+
+    const result = await ballangAPI.post(`/cart/products/:${productId}`, productId);
+
     alert("장바구니에 추가 되었습니다!");
   };
 
