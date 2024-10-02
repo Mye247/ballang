@@ -5,7 +5,7 @@ import { useAuthStore } from "@/zustand/auth.store";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-function BrandDetailPage() {
+function ProductDetailPage() {
   // 클릭한 제품의 id값 가져오기
   const { productId } = useParams();
 
@@ -15,7 +15,7 @@ function BrandDetailPage() {
 
   const [isClicked, setIsClicked] = useState(true);
 
-  // modal, login상태 불러오기
+  // modal, login상태 불러오기 (zustand)
   const setIsModal = useAuthStore((state) => state.setIsModal);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
@@ -102,4 +102,4 @@ function BrandDetailPage() {
   );
 }
 
-export default BrandDetailPage;
+export default ProductDetailPage;
