@@ -26,10 +26,18 @@ function CartPage() {
   };
 
   // 수량 차감, 제거 버튼
-  const handleClickRemoveItemFromCart = async () => {
+  const handleClickRemoveItemFromCart = async (productId: string) => {
     setValue((prev) => prev - 1);
-    if (value < 2) {
-      const response = await ballangAPI.delete("/cart/products/:productId");
+    if (value === 1) {
+      await ballangAPI.delete(`/cart/products/${productId}`);
+
+      // 항목 제거 후 cart 상태 업데이트
+      setCart((prevCart) => ({
+        ...prevCart!,
+        items: prevCart!.items.filter(
+          (item) => String(item.product.id) !== productId
+        ),
+      }));
     }
   };
 
@@ -48,7 +56,7 @@ function CartPage() {
                 <Link href={`/products/${item.product.id}`}>
                   <img
                     src={item.product.imgSrc}
-                    alt=""
+                    alt="상품 이미지"
                     className="w-44 aspect-[3/4]"
                   />
                 </Link>
@@ -70,7 +78,9 @@ function CartPage() {
                 <div>
                   <button
                     className="border border-black bg-black text-white w-[20px]"
-                    onClick={handleClickRemoveItemFromCart}
+                    onClick={() =>
+                      handleClickRemoveItemFromCart(String(item.product.id))
+                    }
                   >
                     -
                   </button>
