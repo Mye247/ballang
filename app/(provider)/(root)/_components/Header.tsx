@@ -4,6 +4,7 @@ import { useAuthStore } from "@/zustand/auth.store";
 import Link from "next/link";
 import React, { useState } from "react";
 import ModalPage from "./Modal";
+import { LogOut } from "@/api/ballangAPI";
 
 function Header() {
   const [modal, setModal] = useState(false);
@@ -16,7 +17,9 @@ function Header() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
-  const handleClickLogOut = () => {
+  const handleClickLogOut = async () => {
+    const result = await LogOut();
+    console.log(result);
     setIsLoggedIn(false);
     alert("로그아웃 되었습니다!");
   };

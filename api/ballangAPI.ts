@@ -22,6 +22,7 @@ export interface Brand {
   nameKr: string;
 }
 
+// 사용안함
 export interface SignUp {
   email: string;
   password: string;
@@ -63,6 +64,21 @@ export async function SignUp(email: string, password: string) {
   };
   try {
     const response = await ballangAPI.post("/auth/sign-up", data);
+    const result = await response.data;
+
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function LogIn(email: string, password: string) {
+  const data = {
+    email,
+    password,
+  };
+  try {
+    const response = await ballangAPI.post("/auth/log-in", data);
     const result = await response.data;
 
     return result;

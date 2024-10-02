@@ -15,10 +15,10 @@ export default async function BrandsListPage({ searchParams }: Props) {
 
   const selectedBrandId = Number(searchParams.brandId);
 
-  // string 출력
+  // string으로 출력
   console.log(typeof selectedBrandId);
 
-  // 타입 오브젝트로 출력됨
+  // 타입 object 출력됨
   console.log(typeof products[0].brand.id);
 
   return (

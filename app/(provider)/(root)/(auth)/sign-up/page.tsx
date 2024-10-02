@@ -14,7 +14,7 @@ function SignUpPage() {
 
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
-  const handleClickSignUpButton = () => {
+  const handleClickSignUpButton = async () => {
     if (!email.includes("@") || !email.includes("."))
       return alert("이메일 형식을 맞추어 입력해주세요!");
     if (!password) return alert("비밀번호를 입력해주세요!");
@@ -22,8 +22,11 @@ function SignUpPage() {
     if (password !== checkPassword)
       return alert("비밀번호가 일치하지 않습니다!");
 
-    SignUp(email, password);
+    const result = await SignUp(email, password);
+    console.log(result);
     setIsLoggedIn(true);
+
+    if (!result) return;
 
     router.push("/");
   };

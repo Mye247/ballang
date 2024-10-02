@@ -1,3 +1,4 @@
+import { LogIn } from "@/api/ballangAPI";
 import { useAuthStore } from "@/zustand/auth.store";
 import React, { useState } from "react";
 
@@ -10,7 +11,7 @@ function ModalPage() {
   const handleToggleModal = () => {
     setModal(false);
   };
-  const handleClickSignUpButton = () => {
+  const handleClickSignUpButton = async () => {
     if (!email.includes("@") || !email.includes(".")) {
       return alert("이메일 형식을 맞추어 입력해주세요!");
     }
@@ -18,15 +19,13 @@ function ModalPage() {
       return alert("비밀번호를 입력해주세요!");
     }
 
-    const data = {
-      email,
-      password,
-    };
+    const result = await LogIn(email, password);
+    console.log(result);
+
+    if (!result) return alert("회원 정보가 없습니다!");
 
     setIsLoggedIn(true);
     setModal(false);
-
-    console.log(data);
   };
 
   return (
