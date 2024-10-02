@@ -7,11 +7,11 @@ type AuthStoreState = {
   isAuthInitialized: boolean;
   isLoggedIn: boolean;
   isModal: boolean;
-  isCart: boolean;
+  // isCart: boolean;
   initializeAuth: () => void;
   setIsModal: (isModal: boolean) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
-  setIsCart: (isCart: boolean) => void;
+  // setIsCart: (isCart: boolean) => void;
 };
 
 // persist이용 로그인 정보 저장해놓기
@@ -21,8 +21,8 @@ export const useAuthStore = create<AuthStoreState>()(
       isModal: false,
       isLoggedIn: false,
       isAuthInitialized: false,
-      isCart: false,
-      setIsCart: (isCart: boolean) => set({ isCart }),
+      // isCart: false,
+      // setIsCart: (isCart: boolean) => set({ isCart }),
       setIsModal: (isModal: boolean) => set({ isModal }),
       setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
       initializeAuth: () => set({ isAuthInitialized: true }),

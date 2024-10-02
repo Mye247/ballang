@@ -13,8 +13,7 @@ function BrandDetailPage() {
   const [value, setValue] = useState<Product | null>(null);
   console.log(value);
 
-  const isCart = useAuthStore((state) => state.isCart);
-  const setIsCart = useAuthStore((state) => state.setIsCart);
+  const [isClicked, setIsClicked] = useState(true);
 
   // modal, login상태 불러오기
   const setIsModal = useAuthStore((state) => state.setIsModal);
@@ -46,14 +45,14 @@ function BrandDetailPage() {
       productId
     );
 
-    setIsCart(isCart == false);
+    setIsClicked(isClicked == false);
     alert("장바구니에 추가 되었습니다!");
   };
 
   // 장바구니에서 제품 삭제하기
   const handleClickClearItemInCart = async () => {
     const result = await ballangAPI.delete(`/cart/products/${productId}/clear`);
-    setIsCart(!isCart);
+    setIsClicked(!isClicked);
     alert("장바구니에서 삭제했습니다!");
   };
 
@@ -81,7 +80,7 @@ function BrandDetailPage() {
               <p>잔여 재고</p> <p>200</p>
             </div>
 
-            {isCart ? (
+            {isClicked ? (
               <button
                 className="border border-black min-w-[430px] h-[60px] font-bold text-white bg-black hover:-translate-y-2 transition-all mt-20"
                 onClick={handleClickAddCart}
