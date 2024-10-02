@@ -61,6 +61,8 @@ const ballangAPI = axios.create({
 export default ballangAPI;
 
 // data API
+
+// all data
 export async function getProducts() {
   try {
     const response = await ballangAPI.get("/products");
@@ -74,6 +76,7 @@ export async function getProducts() {
   }
 }
 
+// brand 목록
 export async function getBrands() {
   try {
     const response = await ballangAPI.get("/brands");
@@ -85,6 +88,7 @@ export async function getBrands() {
   }
 }
 
+// 회원가입
 export async function SignUp(email: string, password: string) {
   const data = {
     email,
@@ -100,6 +104,7 @@ export async function SignUp(email: string, password: string) {
   }
 }
 
+// 로그인
 export async function LogIn(email: string, password: string) {
   const data = {
     email,
@@ -115,6 +120,7 @@ export async function LogIn(email: string, password: string) {
   }
 }
 
+// 로그아웃
 export async function LogOut() {
   try {
     const response = await ballangAPI.delete("/auth/log-out");
@@ -126,6 +132,7 @@ export async function LogOut() {
   }
 }
 
+// 장바구니 목록
 export async function getCart() {
   try {
     const response = await ballangAPI.get("/cart");

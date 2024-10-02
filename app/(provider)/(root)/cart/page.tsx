@@ -1,11 +1,17 @@
 "use client";
 
-import { Cart, CartItem, getCart } from "@/api/ballangAPI";
+import ballangAPI, { Cart, CartItem, getCart } from "@/api/ballangAPI";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 function CartPage() {
+  // cart에 담긴 정보 저장하기
   const [cart, setCart] = useState<Cart | null>(null);
+
+  // 수량 저장하기
+  const [value, setValue] = useState(1);
+
+  // Cart에 들어있는 데이터 불러오기
   useEffect(() => {
     (async () => {
       const cart = await getCart();
@@ -14,25 +20,41 @@ function CartPage() {
     })();
   }, []);
 
-  const handleClickAddItem = () => {};
+  // 수량 추가 버튼
+  const handleClickAddItem = () => {
+    setValue((prev) => prev + 1);
+  };
+
+  // 수량 차감, 제거 버튼
+  const handleClickRemoveItemFromCart = async () => {
+    setValue((prev) => prev - 1);
+    if (value < 2) {
+      const response = await ballangAPI.delete("/cart/products/:productId");
+    }
+  };
 
   return (
     <main className="text-center">
+      {/* 배열 자체로 true라서 배열의 길이로 참/거짓을 체크 */}
       {!!cart?.items.length ? (
-        <section className="p-5">
+        <section className="p-5 ">
           <h2 className="font-bold text-3xl my-10">장바구니</h2>
           <ul>
             {cart.items.map((item) => (
               <li
                 key={item.id}
-                className="mt-5 grid grid-cols-3 items-center place-items-center"
+                className="mt-5 grid grid-cols-3 items-center place-items-center border-b"
               >
                 <Link href={`/products/${item.product.id}`}>
-                  <img src={item.product.imgSrc} alt="" className="w-44" />
+                  <img
+                    src={item.product.imgSrc}
+                    alt=""
+                    className="w-44 aspect-[3/4]"
+                  />
                 </Link>
 
                 <ul className="flex flex-col items-start gap-y-3 w-[600px]">
-                  <li>
+                  <li className="font-bold">
                     {item.product.brand.nameKr}/{item.product.brand.nameEn}
                   </li>
                   <li>{item.product.name}</li>
@@ -46,13 +68,19 @@ function CartPage() {
                 </ul>
 
                 <div>
-                  <button className="border border-black bg-black text-white w-[20px]">
+                  <button
+                    className="border border-black bg-black text-white w-[20px]"
+                    onClick={handleClickRemoveItemFromCart}
+                  >
                     -
                   </button>
                   <span className="border border-black inline-block w-[20px]">
-                    0
+                    {value}
                   </span>
-                  <button className="border border-black bg-black text-white w-[20px]">
+                  <button
+                    className="border border-black bg-black text-white w-[20px]"
+                    onClick={handleClickAddItem}
+                  >
                     +
                   </button>
                 </div>

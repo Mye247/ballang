@@ -10,9 +10,11 @@ interface Props {
 }
 
 export default async function BrandsListPage({ searchParams }: Props) {
+  // API 호출
   const brands: Brand[] = await getBrands();
   const products: Product[] = await getProducts();
 
+  // searchParams 담기
   const selectedBrandId = Number(searchParams.brandId);
 
   // string으로 출력
@@ -62,9 +64,9 @@ export default async function BrandsListPage({ searchParams }: Props) {
 
                 <div className="flex gap-2 mt-2">
                   <span className="text-red-500 line-through">
-                    ₩{product.originalPrice}
+                    ₩{product.originalPrice.toLocaleString()}
                   </span>
-                  <span>₩{product.price}</span>
+                  <span>₩{product.price.toLocaleString()}</span>
                 </div>
               </li>
             ))}

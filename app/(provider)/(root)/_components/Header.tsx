@@ -6,16 +6,19 @@ import ModalPage from "./Modal";
 import { LogOut } from "@/api/ballangAPI";
 
 function Header() {
+  // store
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
   const isModal = useAuthStore((state) => state.isModal);
   const setIsModal = useAuthStore((state) => state.setIsModal);
 
+  // 모달 열기&닫기
   const handleToggleModal = () => {
     setIsModal(!isModal);
     console.log(isModal);
   };
 
+  // 로그아웃
   const handleClickLogOut = async () => {
     const result = await LogOut();
     console.log(result);
@@ -24,6 +27,7 @@ function Header() {
   };
   return (
     <>
+      {/* 기본화면 */}
       <header className="p-5 flex items-center justify-between border-b ">
         <nav className="flex gap-x-20 items-center">
           <Link href={"/"}>
@@ -34,6 +38,7 @@ function Header() {
           </Link>
         </nav>
 
+        {/* 로그인값이 true/false 라면.. */}
         {isLoggedIn ? (
           <nav className="flex gap-x-3 items-center">
             <Link href={"/cart"}>장바구니</Link>
