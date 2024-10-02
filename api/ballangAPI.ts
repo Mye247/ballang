@@ -22,6 +22,30 @@ export interface Brand {
   nameKr: string;
 }
 
+export interface Cart {
+  id: number;
+  items: CartItem[];
+}
+
+export interface CartItem {
+  cartId: number;
+  id: number;
+  product: {
+    brand: {
+      id: number;
+      nameKr: string;
+      nameEn: string;
+    };
+    id: number;
+    imgSrc: string;
+    name: string;
+    onlineStock: string;
+    originalPrice: number;
+    price: number;
+  };
+  productId: number;
+}
+
 // 사용안함
 export interface SignUp {
   email: string;
@@ -105,7 +129,7 @@ export async function LogOut() {
 export async function getCart() {
   try {
     const response = await ballangAPI.get("/cart");
-    const result = await response.data;
+    const result = await response.data.result;
 
     return result;
   } catch (e) {
